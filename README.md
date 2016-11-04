@@ -22,6 +22,4 @@ API's used:
 
 
 
-<img src="thumb_IMG_0010_1024.jpg" alt="alt text" width="250" height="500">
-
-<img src="thumb_IMG_0071_1024.jpg" alt="alt text" width="250" height="500">
+<img src="thumb_IMG_0010_1024.jpg" alt="alt text" width="250" height="500"> <img src="thumb_IMG_0071_1024.jpg" alt="alt text" width="250" height="500">
