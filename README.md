@@ -21,7 +21,7 @@ API's used:
 
 
 
-![Screenshot](thumb_IMG_0071_1024.jpg)
+![Screenshot](thumb_IMG_0071_1024.jpg =250x250)
 
 
-![Screenshot](thumb_IMG_0010_1024.jpg)
+![Screenshot](thumb_IMG_0010_1024.jpg =250x250)
