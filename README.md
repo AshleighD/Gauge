@@ -14,7 +14,7 @@ Therefore it should be easy to add new features since ionic framework is pretty 
 
 API's used: 
 
-  Google angular js maps
-  Cordova Gps 
-  Moment js library
+  Google angular js maps, 
+  Cordova Gps, 
+  Moment js library, 
   Cordova motion sensor
