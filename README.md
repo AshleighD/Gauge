@@ -18,3 +18,10 @@ API's used:
   Cordova Gps, 
   Moment js library, 
   Cordova motion sensor
+
+
+
+![Screenshot](thumb_IMG_0071_1024.jpg)
+
+
+![Screenshot](thumb_IMG_0010_1024.jpg)
