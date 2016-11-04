@@ -1,0 +1,248 @@
+/* Empty. Add your own CSS if you like */
+
+
+/* Empty. Add your own CSS if you like */
+
+.creds {
+  background-color: black;
+  height: 100%;
+}
+
+.speed .m-km {
+  color: red;
+  font-size: 1.4em;
+  margin-top: -15%;
+}
+
+
+
+.workout-page {
+  background-color: black;
+}
+
+.top-pad {
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+}
+
+.cluster {
+  margin-top: 27%;
+  margin-bottom: 24%;
+}
+
+
+
+.m-pad {
+  margin-top: 8vh;
+  margin-left: 6vw;
+  margin-right: 6vw;
+}
+
+.head {
+  height: 6vh;
+  width: 100vw;
+}
+
+.head a {
+  font-size: 2em;
+}
+
+.settings-pane {
+  max-height: 75vh;
+  max-width: 100vw;
+  margin-left: 4vw;
+  margin-right: 4vw;
+}
+
+
+
+
+.timer h6 {
+  color: yellow;
+  font-size: 1em;
+  width: 100vw;
+  text-align: center;
+  margin-top: -14%;
+  position: fixed;
+}
+
+.info {
+  background-color: red;
+  margin-top: 25px;
+  border-radius: 0px;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 1em;
+}
+
+.info h4 {
+  color: white;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.my-chart {
+  color: red;
+}
+
+.chart {
+  background-color: white;
+  margin-bottom: -5px;
+}
+
+.reset {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  text-align: center;
+  margin-top: 54px;
+}
+
+.weather h6 {
+  color: yellow;
+  float: left;
+  margin-left: 26%;
+  margin-top: -90%;
+  font-size: 1em;
+}
+
+.time a {
+  color: red;
+  display: block;
+  font-size: 1.94em;
+}
+
+.right-tx {
+  position: fixed;
+  margin-left: 78vw;
+  margin-top: 0vh;
+}
+
+.left-tx {
+  position: fixed;
+  margin-left: 3vw;
+  margin-top: -9.4%;
+}
+
+.endW {
+  float: left;
+  margin-top: -2vh;
+  margin-left: -3vw;
+}
+
+.startW {
+  float: right;
+  margin-top: -2vh;
+  margin-right: -3vw;
+}
+
+.target-icon a {
+  color: red;
+  margin-right: -8vw;
+  margin-top: -9vh;
+}
+
+.time {
+  margin-left: 8vw;
+  margin-right: 8vw;
+}
+
+.statsDiv2 {
+  padding-top: 10px;
+  display: block;
+}
+
+.card-footer {
+  color: rgba(255, 3, 3, 0.86);
+  text-align: center;
+}
+
+.statsPg {
+  margin-left: 4vw;
+  margin-right: 3vw;
+  background-color: black;
+}
+
+.statsHead h1 {
+  font-size: 1.6em;
+}
+
+.map-ctrl {
+  z-index: 100;
+  position: fixed;
+}
+
+h1 {
+  text-align: center;
+  color: rgba(255, 33, 32, 0.76);
+  padding-top: 4vh;
+  font-size: 1.9em;
+}
+
+h4 {
+  color: rgba(255, 33, 32, 0.76);
+}
+
+.scroll-bar-indicator {
+  display: none;
+}
+
+.lat {
+  color: rgba(255, 33, 32, 0.76);
+  margin-left: 20vw;
+}
+
+.custom-color {
+  background-color: transparent;
+  color: black;
+}
+
+.c-tab {
+  background-color: transparent;
+}
+
+
+.view-module {
+  padding-top: 5%;
+  padding-bottom: 10%;
+  text-align: center;
+}
+
+.speed h4 {
+  text-align: center;
+  font-size: 8em;
+  margin-top: -1.82em;
+  margin-left: 18%;
+  border-radius: 500px;
+  width: 63vw;
+  position: fixed;
+  color: rgba(255, 33, 32, 0.76);
+}
+
+.distance {
+  font-size: 1.4em;
+  float: left;
+  color: rgba(255, 33, 32, 0.76);
+  margin-left: 8%;
+  position: fixed;
+}
+
+
+.heading h4 {
+  font-size: 1.4em;
+  color: rgba(255, 33, 32, 0.76);
+  margin-top: 3%;
+  margin-left: 72%;
+  position: fixed;
+}
+
+.altitude h4 {
+  font-size: 1.4em;
+  color: rgba(255, 33, 32, 0.76);
+  float: left;
+  margin-left: 15%;
+}
+
+.distance h6 {
+  font-size: 1.4em;
+}
