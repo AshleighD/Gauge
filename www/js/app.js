@@ -18,7 +18,6 @@ angular.module('starter', ['ionic', 'ngCordova'])
 
 
 
-
 .controller('dashBoard', function($scope, $cordovaGeolocation, $ionicPlatform, $cordovaDeviceOrientation, $interval, $timeout, $ionicLoading, $rootScope) {
   /////Variable dependencies
   $scope.speedSum = 0;
@@ -50,16 +49,27 @@ angular.module('starter', ['ionic', 'ngCordova'])
       $scope.Rspeed = Math.round(speed)
       $scope.userSpeeds.push($scope.Rspeed); ///store user speed average into an array
 
-      //Sum of our userspeeds into an average
-      setInterval(function() {
-        for (var i = $scope.userSpeeds.length; !!i--;) {
-          $scope.speedSum += $scope.userSpeeds[i] / 1000; // avg speed every 1s
-        }
-        console.log("Avg sp: " + $scope.speedSum);
-      }, 1000);
+
+      //While bike speed is greater than 5km/h calculate my avg and if speed changes
+      $scope.$watch('Rspeed', function(newValue, scope) {
+        setInterval(function() {
+          for (var i = 0; i < $scope.userSpeeds.length; i++) {
+            $scope.speedSum += $scope.userSpeeds[i]; // avg speed every 1s
+          }
+          $scope.avgSp = $scope.speedSum / $scope.userSpeeds.length; ///Get average
+        }, 1000);
+        console.log("Avg sp: " + $scope.avgSp);
+      });
 
 
-      if ($scope.Rspeed < 1) {
+      ///While our speed is no greater than 5km, dont start engine
+      if ($scope.Rspeed < 5) { ///Timer auto pause
+        $scope.endWorkout();
+      } else {
+        $scope.startMyworkout();
+      }
+
+      if ($scope.Rpseed < 1) {
         gauge.set(0); //set guage speed
         $scope.speed = 0; //Replace -4 with a 0
         console.log("Engine halt: " + $scope.Rspeed);
@@ -68,59 +78,48 @@ angular.module('starter', ['ionic', 'ngCordova'])
         $scope.speed = $scope.Rspeed;
         console.log("Engine cruise: " + $scope.Rspeed);
       }
-
-      if ($scope.Rspeed < 5) { ///Timer auto pause
-        $scope.endWorkout();
-      } else {
-        $scope.startMyworkout();
-      }
     });
 
 
 
-////Timer
+  ////Timer
   function displayTime() {
-    $scope.timer = "+" + moment().hour(0).minute(0).second($scope.counter++).format('HH : mm : ss');
+    $scope.timer = "+" + moment().hour(0).minute(0).second($scope.counter + 1).format('HH : mm : ss');
     $scope.EngineTime = $scope.counter++;
-    $scope.ourTime = moment.duration($scope.EngineTime).asSeconds();
+    $scope.ourTime = moment.duration($scope.counter + 1).asHours(); ///Use later
   }
 
 
-
-
-////Mileage function
+  ////Mileage function
   $scope.calMileage = function() {
-    $scope.cnt = 0;
-    $scope.rMileage = 0;
-    $scope.EngineTime = $scope.cnt++; //mileage trip-cnt
-    $scope.ourTime = moment.duration($scope.EngineTime).asSeconds(); //trip converter
-
     setInterval(function() {
       var count = 0;
       $scope.mCont = [];
-      $scope.avgSp = $scope.speedSum / 3.6; //mileage speed to m/s
-      $scope.currentM = $scope.avgSp * $scope.ourTime;
-      $scope.rMileage = Math.round($scope.currentM) * 3.6; // "*" by 3.6 to conver to km
-      $scope.mCont.push($scope.rMileage);//inject mileage
-      for (var i = $scope.mCont.length; !!i--;) {
-        count += $scope.mCont[i];
+      $scope.rMileage = 0;
+
+      if ($scope.Rspeed > 0) { ///calc m++ while Rsp > 0
+        $scope.currentM = $scope.avgSp * $scope.ourTime;
+        $scope.rMileage = Math.round($scope.currentM);
       }
+      $scope.mCont.push($scope.rMileage); //inject mileage
 
-      //Spit data
-        $scope.dst = $scope.mCont + " km"; ///Give current milage
-        console.log("M++ " + $scope.currentM * 3.6 + " km " + " TT:" + $scope.ourTime);
+      //Sum our speed while speed update is true
+      for (var x = 0; x < $scope.mCont.length; x++) {
+        count += $scope.mCont[x];
+      }
+      $scope.dst = $scope.mCont + " km"; ///Give current milage
+      console.log("M++ " + $scope.currentM + " km " + " TT:" + $scope.ourTime);
     }, 1000);
-
   }
 
 
   ///Start btn
   $scope.startMyworkout = function() {
-    console.log("Workout Started");
-    $scope.calMileage();
     if ($scope.runClock == null) {
       $scope.runClock = $interval(displayTime, 1000);
     }
+    $scope.calMileage();
+    console.log("Workout Started");
   }
 
   ///End timer
@@ -145,7 +144,11 @@ angular.module('starter', ['ionic', 'ngCordova'])
     lines: 12, // The number of lines to draw
     angle: 0.36, // The length of each line
     lineWidth: 0.0128, // The line thickness
-    pointer: { length: 0.9, strokeWidth: 0.035, color: '#000000' },
+    pointer: {
+      length: 0.9,
+      strokeWidth: 0.035,
+      color: '#000000'
+    },
     limitMax: 'true', // If true, the pointer will not go past the end of the gauge
     colorStart: '#FF0000', // Colors
     colorStop: '#FF0000', // just experiment with them
@@ -167,7 +170,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
   $scope.dashHold = function() { //On hold
   }
   $scope.dashRelease = function() { //On release
-  }
+    }
     ////////////////////////////////////////////////////////////////
 
 
