@@ -25,6 +25,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
   $scope.engineStarted;
   $scope.elpT; //time since take off moment js
   $scope.userSpeeds = [];
+
   //System timer
   $scope.counter = 0;
   $scope.runClock = null;
@@ -48,17 +49,19 @@ angular.module('starter', ['ionic', 'ngCordova'])
       speed = position.coords.speed * 3.6
       $scope.Rspeed = Math.round(speed)
       $scope.userSpeeds.push($scope.Rspeed); ///store user speed average into an array
-
+      $scope.slc = $scope.userSpeeds.length;
 
       //While bike speed is greater than 5km/h calculate my avg and if speed changes
       $scope.$watch('Rspeed', function(newValue, scope) {
         setInterval(function() {
-          for (var i = 0; i < $scope.userSpeeds.length; i++) {
+          for (var i = 0; i < $scope.userSpeeds.length;  i +=1) {
             $scope.speedSum += $scope.userSpeeds[i]; // avg speed every 1s
           }
-          $scope.avgSp = $scope.speedSum / $scope.userSpeeds.length; ///Get average
+
+          $scope.avgSp = $scope.speedSum / $scope.slc; ///Get average
+
         }, 1000);
-        console.log("Avg sp: " + $scope.avgSp);
+        console.log("Avg sp: " + $scope.avgSp );
       });
 
 
