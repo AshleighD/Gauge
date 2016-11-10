@@ -80,7 +80,6 @@ angular.module('starter', ['ionic', 'ngCordova'])
     });
 
 
-
   ////Timer
   function displayTime() {
     $scope.timer = "+" + moment().hour(0).minute(0).second($scope.counter + 1).format('HH : mm : ss');
@@ -164,13 +163,9 @@ angular.module('starter', ['ionic', 'ngCordova'])
   ////////////////////////////////////////////////////////////////
   //////// TOUCH...EVENTS
   ////////////////////////////////////////////////////////////////
-  $scope.checkWeather = function() { //Check weather
-    $scope.weather = "22°C"
-  }
-  $scope.dashHold = function() { //On hold
-  }
-  $scope.dashRelease = function() { //On release
-    }
+    // dashRelease  ////ON releas tell the cpu what to do
+    // dashHold ///On hold tell the cpu what to do
+    // checkWeather ///Grab the weather 
     ////////////////////////////////////////////////////////////////
 
 
