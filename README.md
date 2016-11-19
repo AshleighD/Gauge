@@ -10,8 +10,8 @@ I have managed to use many api that are javascript based.
 Therefore it should be easy to add new features since ionic framework is pretty flexible. 
 
 Current bugs:
-  High CPU usage
-  Memory leak
+  High CPU usage, 
+  Memory leak, 
   Speed display issue (sometimes it shows some times it doesn't)
 
 
