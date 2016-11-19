@@ -16,8 +16,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
   })
 
 
-
-
+//Main controller
 .controller('dashBoard', function($scope, $cordovaGeolocation, $ionicPlatform, $cordovaDeviceOrientation, $interval, $timeout, $ionicLoading, $rootScope) {
   /////Variable dependencies
   $scope.speedSum = 0;
@@ -29,12 +28,11 @@ angular.module('starter', ['ionic', 'ngCordova'])
   $scope.runClock = null;
 
 
-  ///Time
+  ///Current Time
   setInterval(function() {
     var curTime = moment().format('LTS'); ///Dispalay system time
     $scope.time = curTime;
   }, 1000);
-
 
 
   var watchOptions = {
@@ -46,37 +44,36 @@ angular.module('starter', ['ionic', 'ngCordova'])
     function(position) {
       speed = position.coords.speed * 3.6
       $scope.Rspeed = Math.round(speed)
-      $scope.userSpeeds.push($scope.Rspeed); ///store user speed average into an array
-      $scope.slc = $scope.userSpeeds.length; ///speed container
 
-      //While bike speed changes calculate my avg and if speed changes
+
+
+      //Watch for a change: bike speed
       $scope.$watch('Rspeed', function(newValue, scope) {
-        setInterval(function() {
-          for (var i = 0; i < $scope.userSpeeds.length;  i +=1) {
-            $scope.speedSum += $scope.userSpeeds[i]; // avg speed every 1s
-          }
-          $scope.avgSp = $scope.speedSum / $scope.slc; //Get average
-        }, 1000);
-        console.log("Avg sp: " + $scope.avgSp );
+        $scope.userSpeeds.push($scope.Rspeed); //Log speeds into array
+        $scope.slc = $scope.userSpeeds.length;
+
+          setInterval(function() {
+            for (var i = 0; i < $scope.userSpeeds.length; i += 1) {
+              $scope.speedSum += $scope.userSpeeds[i]; // avg speed every 1s
+            }
+            $scope.avgSp = $scope.speedSum / $scope.slc; //Get average
+          }, 1000);
+            console.log("Avg sp: " + $scope.avgSp);
       });
 
-
-      ///While our speed is no greater than 5km, dont start engine
+      ///Auto start Workout tracker
       if ($scope.Rspeed < 5) { ///Timer auto pause
         $scope.endWorkout();
-      } else {
-        $scope.startMyworkout();
-      }
-
-      if ($scope.Rpseed < 1) {
         gauge.set(0); //set guage speed
         $scope.speed = 0; //Replace -4 with a 0
         console.log("Engine halt: " + $scope.Rspeed);
       } else {
+        $scope.startMyworkout();
         gauge.set($scope.Rspeed); //set guage speed
         $scope.speed = $scope.Rspeed;
         console.log("Engine cruise: " + $scope.Rspeed);
       }
+
     });
 
 
@@ -163,12 +160,10 @@ angular.module('starter', ['ionic', 'ngCordova'])
   ////////////////////////////////////////////////////////////////
   //////// TOUCH...EVENTS
   ////////////////////////////////////////////////////////////////
-    // dashRelease  ////ON releas tell the cpu what to do
-    // dashHold ///On hold tell the cpu what to do
-    // checkWeather ///Grab the weather 
-    ////////////////////////////////////////////////////////////////
-
-
+  // dashRelease  ////ON releas tell the cpu what to do
+  // dashHold ///On hold tell the cpu what to do
+  // checkWeather ///Grab the weather
+  ////////////////////////////////////////////////////////////////
 
 
 
