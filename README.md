@@ -25,4 +25,4 @@ API's used:
 
 
 
-<img src="thumb_IMG_0010_1024.jpg" alt="alt text" width="300" height="550"> Pro version <img src="thumb_IMG_0071_1024.jpg" alt="alt text" width="300" height="550"> Basic version
+<img src="thumb_IMG_0010_1024.jpg" alt="alt text" width="300" height="550"> <br><p>Pro version</p> <img src="thumb_IMG_0071_1024.jpg" alt="alt text" width="300" height="550"> <br><p>Basic version</p>
