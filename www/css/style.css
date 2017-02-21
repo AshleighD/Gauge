@@ -6,6 +6,7 @@
   font-family: digi;
   src: url(../lib/ionic/fonts/digital-7.ttf);
 }
+
 .creds {
   background-color: black;
   height: 100%;
@@ -17,8 +18,6 @@
   margin-top: -15%;
   font-family: digi;
 }
-
-
 
 .workout-page {
   background-color: black;

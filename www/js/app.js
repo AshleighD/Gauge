@@ -47,7 +47,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
 
 
 
-      //Watch for a change: bike speed
+  // Track bike speed
       $scope.$watch('Rspeed', function(newValue, scope) {
         $scope.userSpeeds.push($scope.Rspeed); //Log speeds into array
         $scope.slc = $scope.userSpeeds.length;
@@ -61,7 +61,8 @@ angular.module('starter', ['ionic', 'ngCordova'])
             console.log("Avg sp: " + $scope.avgSp);
       });
 
-      ///Auto start Workout tracker
+
+ //Auto start Workout tracker
       if ($scope.Rspeed < 5) { ///Timer auto pause
         $scope.endWorkout();
         gauge.set(0); //set guage speed
@@ -77,12 +78,15 @@ angular.module('starter', ['ionic', 'ngCordova'])
     });
 
 
-  ////Timer
+
+  ///Timer
   function displayTime() {
     $scope.timer = "+" + moment().hour(0).minute(0).second($scope.counter + 1).format('HH : mm : ss');
     $scope.EngineTime = $scope.counter++;
-    $scope.ourTime = moment.duration($scope.counter + 1).asHours(); ///Use later
+    $scope.ourTime = 0.6/moment.duration($scope.counter + 1).asSeconds(); ///Use later
   }
+
+
 
 
   ////Mileage function
@@ -107,6 +111,9 @@ angular.module('starter', ['ionic', 'ngCordova'])
       console.log("M++ " + $scope.currentM + " km " + " TT:" + $scope.ourTime);
     }, 1000);
   }
+
+
+
 
 
   ///Start btn
