@@ -12,6 +12,9 @@
   height: 100%;
 }
 
+.clock  {
+  font-family: digi;
+}
 .speed .m-km {
   color: red;
   font-size: 1.4em;
@@ -64,6 +67,7 @@
   text-align: center;
   margin-top: -14%;
   position: fixed;
+  font-family: digi;
 }
 
 .info {
@@ -235,6 +239,7 @@ h4 {
   margin-top: 3%;
   margin-left: 72%;
   position: fixed;
+  font-family: digi;
 }
 
 .altitude h4 {
@@ -244,6 +249,8 @@ h4 {
   margin-left: 15%;
 }
 
-.distance h6 {
-  font-size: 1.4em;
+.distance h4 {
+  font-size: 0.95em;
+  font-family: digi;
+
 }
