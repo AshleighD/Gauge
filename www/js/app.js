@@ -19,13 +19,15 @@ angular.module('starter', ['ionic', 'ngCordova'])
   //Main controller
   .controller('dashBoard', function($scope, $cordovaGeolocation, $ionicPlatform, $cordovaDeviceOrientation, $interval, $timeout, $ionicLoading, $rootScope) {
     /////Variable dependencies
-    $scope.speedSum = 0;
+
+    $scope.spSum = 0;
     $scope.mileage = 0;
     $scope.engineStarted;
     $scope.elpT; //time since take off moment js
     $scope.userSpeeds = [];
     $scope.counter = 0;
     $scope.runClock = null;
+
 
 
     ///Current Time
@@ -35,49 +37,33 @@ angular.module('starter', ['ionic', 'ngCordova'])
     }, 1000);
 
 
+
     // GPS module location tracker settings
     var watchOptions = {
       timeout: 100,
       maximumAge: 50,
       enableHighAccuracy: true
     };
+
+
     var watch = $cordovaGeolocation.watchPosition(watchOptions).then(null, function(err) {},
       function(position) {
         speed = position.coords.speed * 3.6
         // $scope.Rspeed = Math.round(speed);
-        $scope.Rspeed = Math.round(Math.floor((Math.random() * 10) + 1));
 
-
-
-        // Track bike speed
-        $scope.$watch('Rspeed', function(newValue, scope) {
-          $scope.userSpeeds.push($scope.Rspeed); //Log speeds into array
-          $scope.slc = $scope.userSpeeds.length;
-
-          setInterval(function() {
-            for (var i = 0; i < $scope.userSpeeds.length; i += 1) {
-              $scope.speedSum += $scope.userSpeeds[i]; // avg speed every 1s
-            }
-            $scope.avgSp = $scope.speedSum / $scope.slc; //Get average
-          }, 1000);
-          console.log("Avg sp: " + $scope.avgSp);
-        });
-
-        // ///////////YOU NEED TO FIX THE AVG
-        ///////////AND GET THE SPEED MULTIPLYING
-
+        $rootScope.Rspeed = Math.round(Math.floor((Math.random() * 10) + 1));
 
         //Auto start Workout tracker
-        if ($scope.Rspeed < 5) { ///Timer auto pause
+        if ($scope.Rspeed < 1) { ///Timer auto pause
           $scope.endWorkout();
           gauge.set(0); //set guage speed
           $scope.speed = 0; //Replace -4 with a 0
-          console.log("Engine halt: " + $scope.Rspeed);
+          // console.log("Engine halt: " + $scope.Rspeed);
         } else {
           $scope.startMyworkout();
           gauge.set($scope.Rspeed); //set guage speed
           $scope.speed = $scope.Rspeed;
-          console.log("Engine cruise: " + $scope.Rspeed);
+          // console.log("Engine cruise: " + $scope.Rspeed + "km/h");
         }
 
       });
@@ -91,40 +77,61 @@ angular.module('starter', ['ionic', 'ngCordova'])
     }
 
 
-    // Clear memory
-    // $scope.clearMemory = function(index) {
-    //   $scope.speedCache.splice(index, 1);
-    // }
 
 
 
-    ////Mileage function
-    $scope.calMileage = function() {
-      //
-      // setInterval(function() {
-      //   var count = 0;
-      //   $scope.speedCache = []; //Speed container
-      //   $scope.rMileage = 0;
-      //
-      //   if ($scope.Rspeed > 0) {
-      //     $scope.currentM = ($scope.avgSp/2.5) * $scope.ourTime;
-      //     $scope.rMileage = Math.round($scope.currentM);
-      //   }
-      //
-      //
-      //
-      //   $scope.speedCache.push($scope.rMileage);
-      //   //Sum our speed while speed update is true
-      //   for (var x = 0; x < $scope.speedCache.length; x++) {
-      //     count += $scope.speedCache[x];
-      //     $scope.clearMemory($scope.speedCache[x]);
-      //     console.log($scope.speedCache[x, x] + " clean MeM")
-      //   }
-      //   $scope.dst = $scope.speedCache + " km"; ///Give current milage
-      //   console.log("Miles++ " + $scope.currentM + " km      " + " Timer: " + $scope.ourTime + "  Avgsp: " + $scope.avgSp);
-      //
-      // }, 1000);//refresh every second
-    }
+
+
+
+
+    $scope.$watch('Rspeed', function(newValue, scope) {
+      var spSum = [];
+      var avgSp;
+      var tmpSum = 0;
+      var spLength = spSum.length;
+
+      function getAverage() {
+        setInterval(function(){
+          spSum.length = 0;
+          tmpSum = 0
+        }, 1500)
+
+        //Push
+        setInterval(function() {
+          spSum.push($rootScope.Rspeed); //Log speeds into array
+          // console.log("speeds: " + spSum);
+        }, 1000);
+
+        //Sum
+        setInterval(function() {
+          for (var i = spSum.length; i--;) {
+            tmpSum += spSum[i];
+            // console.log('Sum:' + tmpSum);
+          }
+        }, 1000)
+
+        //divide
+        setInterval(function() {
+          avgSp = tmpSum / spSum.length;
+          console.log('avg ' + avgSp + "Km/h")
+        }, 1000)
+
+
+      }
+
+
+      
+      getAverage()
+
+
+
+    });
+
+
+
+
+
+
 
 
 
@@ -133,15 +140,14 @@ angular.module('starter', ['ionic', 'ngCordova'])
       if ($scope.runClock == null) {
         $scope.runClock = $interval(displayTime, 1000);
       }
-      $scope.calMileage();
-      console.log("Workout Started");
+      // console.log("Workout Started");
     }
 
     ///End timer
     $scope.endWorkout = function() {
       $interval.cancel($scope.runClock);
       $scope.runClock = null;
-      console.log("Workout Stoped");
+      // console.log("Workout Stoped");
     }
 
     ///Reset user timer
