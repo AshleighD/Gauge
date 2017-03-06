@@ -7,6 +7,7 @@
   src: url(../lib/ionic/fonts/digital-7.ttf);
 }
 
+
 .creds {
   background-color: black;
   height: 100%;
@@ -62,7 +63,7 @@
 
 .timer h6 {
   color: yellow;
-  font-size: 1em;
+  font-size: 1.25em;
   width: 100vw;
   text-align: center;
   margin-top: -14%;

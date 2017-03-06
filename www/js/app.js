@@ -19,7 +19,6 @@ angular.module('starter', ['ionic', 'ngCordova'])
   //Main controller
   .controller('dashBoard', function($scope, $cordovaGeolocation, $ionicPlatform, $cordovaDeviceOrientation, $interval, $timeout, $ionicLoading, $rootScope) {
     /////Variable dependencies
-
     $scope.spSum = 0;
     $scope.mileage = 0;
     $scope.engineStarted;
@@ -27,7 +26,10 @@ angular.module('starter', ['ionic', 'ngCordova'])
     $scope.userSpeeds = [];
     $scope.counter = 0;
     $scope.runClock = null;
-
+    var spSum = [];
+    var avgSp;
+    var tmpSum = 0;
+    var spLength = spSum.length;
 
 
     ///Current Time
@@ -51,7 +53,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
         speed = position.coords.speed * 3.6
         // $scope.Rspeed = Math.round(speed);
 
-        $rootScope.Rspeed = Math.round(Math.floor((Math.random() * 10) + 1));
+        $rootScope.Rspeed = 63; //Simulated
 
         //Auto start Workout tracker
         if ($scope.Rspeed < 1) { ///Timer auto pause
@@ -68,77 +70,50 @@ angular.module('starter', ['ionic', 'ngCordova'])
 
       });
 
-
     ///Timer
     function displayTime() {
       $scope.timer = "+" + moment().hour(0).minute(0).second($scope.counter + 1).format('HH : mm : ss');
-      $scope.EngineTime = $scope.counter++;
-      $scope.ourTime = moment.duration($scope.counter + 1).asSeconds();
+      $rootScope.EngineTime = $scope.counter++;
+      $rootScope.ourTime = moment.duration($scope.counter + 1).asSeconds();
     }
 
 
+    function getMileage() {
+      setInterval(function() {
+        spSum.length = 0;
+        tmpSum = 0
+      }, 1010)
 
+      //Push
+      setInterval(function() {
+        spSum.push($rootScope.Rspeed); //Log speeds into array
+        // console.log("speeds: " + spSum);
+      }, 60)
 
+      //Sum
+      setInterval(function() {
+        for (var i = spSum.length; i--;) {
+          tmpSum += spSum[i];
+          console.log('Sum:' + tmpSum);
+        }
+      }, 1000)
 
-
-
-
-
-    $scope.$watch('Rspeed', function(newValue, scope) {
-      var spSum = [];
-      var avgSp;
-      var tmpSum = 0;
-      var spLength = spSum.length;
-
-      function getAverage() {
-        setInterval(function(){
-          spSum.length = 0;
-          tmpSum = 0
-        }, 1500)
-
-        //Push
-        setInterval(function() {
-          spSum.push($rootScope.Rspeed); //Log speeds into array
-          // console.log("speeds: " + spSum);
-        }, 1000);
-
-        //Sum
-        setInterval(function() {
-          for (var i = spSum.length; i--;) {
-            tmpSum += spSum[i];
-            // console.log('Sum:' + tmpSum);
-          }
-        }, 1000)
-
-        //divide
-        setInterval(function() {
-          avgSp = tmpSum / spSum.length;
-          console.log('avg ' + avgSp + "Km/h")
-        }, 1000)
-
-
-      }
-
-
-      
-      getAverage()
-
-
-
-    });
-
-
-
-
-
-
-
+      //Divide and log Mileage
+      setInterval(function() {
+        avgSp = tmpSum / spSum.length;
+        console.log('avg ' + avgSp + "Km/h")
+        var mileage = avgSp * ($rootScope.EngineTime * 0.000277778);
+        $scope.dst = Math.round(mileage);
+        console.log(mileage);
+      }, 1000)
+    }
 
 
     ///Start btn
     $scope.startMyworkout = function() {
       if ($scope.runClock == null) {
         $scope.runClock = $interval(displayTime, 1000);
+        getMileage()
       }
       // console.log("Workout Started");
     }
@@ -182,16 +157,6 @@ angular.module('starter', ['ionic', 'ngCordova'])
     gauge.animationSpeed = 11; // set animation speed (32 is default value)
 
 
-    ////////////////////////////////////////////////////////////////
-    //////// TOUCH...EVENTS
-    ////////////////////////////////////////////////////////////////
-    // dashRelease  ////ON releas tell the cpu what to do
-    // dashHold ///On hold tell the cpu what to do
-    // checkWeather ///Grab the weather
-    ////////////////////////////////////////////////////////////////
-
-
-
 
     $interval(watchCompass, 1000); ///Callback every second
     ////The compass function
@@ -207,6 +172,8 @@ angular.module('starter', ['ionic', 'ngCordova'])
           var accuracy = result.headingAccuracy;
           var timeStamp = result.timestamp;
           var degDirecton = Math.round(magneticHeading);
+          $scope.heading = degDirecton + "°"; ///Display direction headeded
+
           ///log all info to the console for debuging purposes
           console.log(magneticHeading, trueHeading, accuracy, timeStamp);
           switch (true) { ///if the device is facing one or the oter direction, display directon faced
@@ -237,7 +204,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
             case (degDirecton >= 330 && degDirecton <= 360):
               $scope.charN = "N";
           }
-          $scope.heading = degDirecton + "°"; ///Display direction headeded
+
         });
     }
 

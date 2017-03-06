@@ -41,7 +41,7 @@
 
     <ion-pane>
       <ion-view class="creds" view-title="Dash">
-          <ion-content ng-controller="dashBoard" overflow-scroll="false">
+          <ion-content scroll="false" ng-controller="dashBoard" overflow-scroll="false">
               <div class="view-module">
                   <div class="time">
                       <button on-double-tap="endWorkout()" on-tap="startMyworkout()" class="startW button button-clear button-assertive">
@@ -64,7 +64,7 @@
                   </div>
 
                   <div class="distance">
-                      <h4>{{dst}}</h4>
+                      <h4>{{dst}} km</h4>
                   </div>
 
 
