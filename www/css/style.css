@@ -15,10 +15,11 @@
 
 .clock  {
   font-family: digi;
+  font-size: 1.6em;
 }
 .speed .m-km {
   color: red;
-  font-size: 1.4em;
+  font-size: 1.5em;
   margin-top: -15%;
   font-family: digi;
 }
@@ -226,7 +227,7 @@ h4 {
 }
 
 .distance {
-  font-size: 1.4em;
+  font-size: 1.5em;
   float: left;
   color: rgba(255, 33, 32, 0.76);
   margin-left: 8%;
@@ -235,7 +236,7 @@ h4 {
 
 
 .heading h4 {
-  font-size: 1.4em;
+  font-size: 1.5em;
   color: rgba(255, 33, 32, 0.76);
   margin-top: 3%;
   margin-left: 72%;
@@ -244,7 +245,7 @@ h4 {
 }
 
 .altitude h4 {
-  font-size: 1.4em;
+  font-size: 1.5em;
   color: rgba(255, 33, 32, 0.76);
   float: left;
   margin-left: 15%;

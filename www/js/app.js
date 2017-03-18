@@ -26,10 +26,7 @@ angular.module('starter', ['ionic', 'ngCordova'])
     $scope.userSpeeds = [];
     $scope.counter = 0;
     $scope.runClock = null;
-    var spSum = [];
-    var avgSp;
-    var tmpSum = 0;
-    var spLength = spSum.length;
+
 
 
     ///Current Time
@@ -42,8 +39,8 @@ angular.module('starter', ['ionic', 'ngCordova'])
 
     // GPS module location tracker settings
     var watchOptions = {
-      timeout: 100,
-      maximumAge: 50,
+      timeout: 60,
+      maximumAge: 30,
       enableHighAccuracy: true
     };
 
@@ -51,9 +48,9 @@ angular.module('starter', ['ionic', 'ngCordova'])
     var watch = $cordovaGeolocation.watchPosition(watchOptions).then(null, function(err) {},
       function(position) {
         speed = position.coords.speed * 3.6
-        // $scope.Rspeed = Math.round(speed);
+        $scope.Rspeed = Math.round(speed);
 
-        $rootScope.Rspeed = 63; //Simulated
+        // $rootScope.Rspeed = Math.floor((Math.random() * 50) + 45); //Simulated
 
         //Auto start Workout tracker
         if ($scope.Rspeed < 1) { ///Timer auto pause
@@ -78,7 +75,13 @@ angular.module('starter', ['ionic', 'ngCordova'])
     }
 
 
+
+    var spSum = [];
+    var avgSp;
+    var tmpSum = 0;
+
     function getMileage() {
+      //Memory clean
       setInterval(function() {
         spSum.length = 0;
         tmpSum = 0
@@ -98,13 +101,23 @@ angular.module('starter', ['ionic', 'ngCordova'])
         }
       }, 1000)
 
+
       //Divide and log Mileage
       setInterval(function() {
         avgSp = tmpSum / spSum.length;
         console.log('avg ' + avgSp + "Km/h")
+
+        var mSum = 0;
         var mileage = avgSp * ($rootScope.EngineTime * 0.000277778);
-        $scope.dst = Math.round(mileage);
-        console.log(mileage);
+        var mStorage = [];
+        mStorage.push(mileage);
+
+        for (var x = mStorage.length; x--;) {
+          mSum += mStorage[x];
+        }
+
+        $scope.dst = Math.round(mSum);
+        console.log("Total mileage: " + mSum + " KM");
       }, 1000)
     }
 
